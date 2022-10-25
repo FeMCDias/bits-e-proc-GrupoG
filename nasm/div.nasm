@@ -16,25 +16,35 @@ loop:
   leaw $0, %A   
   movw (%A), %D
 
-  leaw $end, %A 
+  leaw $valida_loop, %A 
   jle
   nop
 
-  ; Soma RAM[3] = RAM[3] + RAM[1]
-  leaw $1, %A     ;;;;;;; ou 1
+  leaw $1, %A     
   movw (%A), %D
-  leaw $0, %A      ;;;;; ou 0
+  leaw $0, %A     
   subw (%A), %D, %D
   movw %D, (%A) 
 
-  ; subtrai RAM[0] = RAM[0] - 1
   leaw $2, %A
   movw (%A), %D
   incw %D, (%A)
 
-  ; loop
   leaw $loop, %A
   jmp
   nop
+
+valida_loop:
+
+  leaw $0, %A
+  movw (%A), %D
+  leaw $end, %A
+  je
+  nop
+
+
+  leaw $2, %A
+  movw (%A), %D
+  decw %D, (%A)
 
 end:
