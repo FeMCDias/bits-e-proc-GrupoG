@@ -14,22 +14,26 @@ loop:
   leaw $0, %A   
   movw (%A), %D
 
+  ;;valida entrada no loop
   leaw $valida_loop, %A 
   jle
   nop
-
+  
+  ;;faz a operação RAM[0] = RAM[0] - RAM[1]
   leaw $1, %A     
   movw (%A), %D
   leaw $0, %A     
   subw (%A), %D, %D
   movw %D, (%A) 
-
+  
+  ;;volta loop
   leaw $loop, %A
   jmp
   nop
 
 valida_loop:
 
+  ;;valida loop verificando se R[0] é diferente de zero e atualizando R[2] com a sobra
   leaw $0, %A
   movw (%A), %D
   leaw $end, %A
