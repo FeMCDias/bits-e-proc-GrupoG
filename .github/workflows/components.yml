@@ -115,6 +115,10 @@ jobs:
         run: |
           pytest hw/test_seq.py -k test_ram
 
+      - name: test abs
+        run: |
+          pytest sw/nasm/test_nasm.py -k test_abs
+
 
 
 
