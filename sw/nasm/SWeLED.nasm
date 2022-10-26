@@ -6,7 +6,6 @@
 ; Faça os LEDs exibirem 
 ; LED = OFF ON ON ON ON ON !SW3 !SW2 !SW1 OFF
 
-;Carregando o valor dos !SWs
 leaw $21185, %A 
 movw (%A), %D
 notw %D 
