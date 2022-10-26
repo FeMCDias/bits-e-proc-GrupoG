@@ -153,6 +153,6 @@ def test_factorial():
     assert nasm_test("factorial.nasm", ram, tst, 10000)
 
 def test_SWeLED():
-    ram = {21185: 26}
+    ram = {21185: 25}
     tst = {21184: 502}
     assert nasm_test("SWeLED.nasm", ram, tst, 10000)
