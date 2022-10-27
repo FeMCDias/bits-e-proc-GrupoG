@@ -107,7 +107,7 @@ def test_pow():
     assert nasm_test("pow.nasm", ram, tst, 10000)
 
 
-def test_stringLenght():
+def test_stringLength():
     ram = {}
     text = "oi tudo bem?"
     ram = text_to_ram(text, 8)
