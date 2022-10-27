@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from myhdl import *
-from .sequencial import *
+from hw.seq import *
 import random
 
 random.seed(5)

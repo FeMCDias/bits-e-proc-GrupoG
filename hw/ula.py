@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 
 from myhdl import *
-
-
+from .components import *
 @block
 def ula(x, y, c, zr, ng, saida, width=16):
-
-    zx_out = Signal(intbv(0)[width:])
-    nx_out = Signal(intbv(0)[width:])
-    zy_out = Signal(intbv(0)[width:])
-    ny_out = Signal(intbv(0)[width:])
-    and_out = Signal(intbv(0)[width:])
-    add_out = Signal(intbv(0)[width:])
-    mux_out = Signal(intbv(0)[width:])
-    no_out = Signal(intbv(0)[width:])
+    zx_out = Signal(modbv(0)[width:])
+    nx_out = Signal(modbv(0)[width:])
+    zy_out = Signal(modbv(0)[width:])
+    ny_out = Signal(modbv(0)[width:])
+    and_out = Signal(modbv(0)[width:])
+    add_out = Signal(modbv(0)[width:])
+    mux_out = Signal(modbv(0)[width:])
+    no_out = Signal(modbv(0)[width:])
 
     c_zx = c(5)
     c_nx = c(4)
@@ -22,10 +20,25 @@ def ula(x, y, c, zr, ng, saida, width=16):
     c_f = c(1)
     c_no = c(0)
 
+    z0 = zerador(c_zx, zx_out, x)
+    i1 = inversor(c_nx, zx_out, nx_out)
+
+    z2 = zerador(c_zy, zy_out, y)
+    i2 = inversor(c_ny, zy_out, ny_out)
+   
+    m1 = mux2way(mux_out, and_out, add_out, c_f)
+    i3 = inversor(c_no, mux_out, no_out)
+   
+    c1 = comparador(no_out, zr, ng, width)
+
     @always_comb
     def comb():
-        pass
+        if c_f: 
+            mux_out.next = nx_out & ny_out
+        else:
+             mux_out.next = nx_out + ny_out
 
+        saida.next = no_out
     return instances()
 
 
@@ -35,7 +48,10 @@ def ula(x, y, c, zr, ng, saida, width=16):
 def inversor(z, a, y):
     @always_comb
     def comb():
-        pass
+        if z == 1:
+            y.next = ~a
+        else:
+            y.next = a
 
     return instances()
 
@@ -45,7 +61,14 @@ def comparador(a, zr, ng, width):
     # width insica o tamanho do vetor a
     @always_comb
     def comb():
-        pass
+        if a == 0:
+            zr.next = 1
+        else:
+            zr.next = 0
+        if a[width-1]:
+            ng.next = 1
+        else:
+            ng.next = 0
 
     return instances()
 
@@ -54,8 +77,9 @@ def comparador(a, zr, ng, width):
 def zerador(z, a, y):
     @always_comb
     def comb():
-        pass
-
+        if z == 0:
+            a.next = y
+        else: a.next = 0
     return instances()
 
 
@@ -63,8 +87,7 @@ def zerador(z, a, y):
 def add(a, b, q):
     @always_comb
     def comb():
-        pass
-
+        q.next = a + b
     return instances()
 
 
@@ -72,7 +95,7 @@ def add(a, b, q):
 def inc(a, q):
     @always_comb
     def comb():
-        pass
+        q.next = a + 1
 
     return instances()
 
@@ -113,20 +136,45 @@ def fullAdder(a, b, c, soma, carry):
     return instances()
 
 
+
 @block
 def addcla4(a, b, q):
+
+    new_a = [a(i) for i in range(4)]
+    new_b = [b(i) for i in range(4)]
+
+    z = 0
+
     @always_comb
     def comb():
-        pass
+        c =[z for i in range(4+1)]
+        
+        for i in range(4):
+            c[i+1] = (new_a[i] & new_b[i]) | (new_a[i] ^ new_b[i]) & c[i]
+            q.next[i] = new_a[i] ^ new_b[i] ^ c[i]
 
     return instances()
 
 
 @block
 def addcla16(a, b, q):
+    new_a = [a(i) for i in range(16)]
+    new_b = [b(i) for i in range(16)]
+
+    z = 0
+
     @always_comb
     def comb():
-        pass
+        c =[z for i in range(16+1)]
+        
+        for i in range(16):
+            c[i+1] = (new_a[i] & new_b[i]) | ((new_a[i] ^ new_b[i]) & c[i])
+            
+        if c[16] == 0:
+            for i in range(16):
+                q.next[i] = (new_a[i] ^ new_b[i]) ^ c[i]
+        else:
+            q.next = 0
 
     return instances()
 
@@ -135,12 +183,23 @@ def addcla16(a, b, q):
 # Conceito A
 # ----------------------------------------------
 
-
 @block
 def ula_new(x, y, c, zr, ng, sr, sf, bcd, saida, width=16):
     pass
 
-
+    
 @block
 def bcdAdder(x, y, z):
-    pass
+
+    a = tuple([i for i in range(10) for j in range(1)]*10)
+    b = tuple([i for i in range(10) for j in range(10)])
+
+    @always_comb
+    def comb():
+        sum_ = x + y
+        z.next = 0 if sum_ > 99 else concat(intbv(b[int(sum_)])[4:], intbv(a[int(sum_)])[4:])
+    
+    return instances()
+
+
+

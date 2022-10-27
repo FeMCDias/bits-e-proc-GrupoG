@@ -1,0 +1,42 @@
+[
+  { 
+    "user": "1",
+    "name": "Alexandre Magno Maciel dos Santos",
+    "git-username": "alemagno10",
+    "blackboard-username": "alexandremms"
+  },
+
+  {
+    "user": "2",
+    "name": "Lucca Hiratsuca Costa",
+    "git-username": "LuccaHiratsuca",
+    "blackboard-username": "luccahc"
+  },
+
+  {
+    "user": "3",
+    "name": "Júlia Ferreira de Paiva",
+    "git-username": "juliapaiva1",
+    "blackboard-username": "juliafp2"
+  },
+
+  {
+    "user": "4",
+    "name": "Felipe Maluli de Carvalho Dias",
+    "git-username": "FeMCDias",
+    "blackboard-username": "felipemcd1"
+},
+
+{
+    "user": "5",
+    "name": "Felipe Figueiró",
+    "git-username": "",
+    "blackboard-username": ""
+},
+{
+    "user": "6",
+    "name": "Gustavo Lagoa",
+    "git-username": "lagoa7",
+    "blackboard-username": "gustavog6"
+}
+]
