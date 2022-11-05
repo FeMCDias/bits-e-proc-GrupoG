@@ -34,6 +34,7 @@ class Parser:
         entrada o método retorna "Falso", senão retorna "Verdadeiro".
         @return Verdadeiro se ainda há instruções, Falso se as instruções terminaram.
         """
+
         if self.lineNumber != len(self.content):
             self.currentCommand = Parser.clear_command(self.content[self.lineNumber])
             while self.currentCommand == [''] or self.currentCommand[0] == ';':
@@ -44,6 +45,7 @@ class Parser:
         else:
             return False
 
+
     # TODO
     def commandType(self):
         """
@@ -51,7 +53,7 @@ class Parser:
          - self.commandType['A'] para leaw, por exemplo leaw $1,%A
          - self.commandType['L'] para labels, por exemplo Xyz: , onde Xyz é um símbolo.
          - self.commandType['C'] para todos os outros comandos
-        @param  command instrução a ser analisada.
+        @param  self.currentCommand
         @return o tipo da instrução.
         """
         com = self.currentCommand
@@ -71,9 +73,11 @@ class Parser:
         @param command instrução a ser analisada.
         @return somente o símbolo ou o valor número da instrução.
         """
+
         com = self.currentCommand
         com[1] = com[1].replace('$','')
         return com[1]
+
 
     # TODO
     def label(self):
@@ -83,8 +87,10 @@ class Parser:
         @param command instrução a ser analisada.
         @return o símbolo da instrução (sem os dois pontos).
         """
+
         com = self.currentCommand
         return com[0].replace(':','')
+
 
     # DONE
     def command(self):
