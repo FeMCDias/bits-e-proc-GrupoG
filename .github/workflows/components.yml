@@ -27,97 +27,108 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       # ------------- Tests ----------------
-      - name: test and16
-        run: |
-          pytest hw/test_components.py -k and16
+      # - name: test and16
+      #   run: |
+      #     pytest hw/test_components.py -k and16
 
-      - name: test or8way
-        run: |
-          pytest hw/test_components.py -k or8way
+      # - name: test or8way
+      #   run: |
+      #     pytest hw/test_components.py -k or8way
 
-      - name: test mux2way
-        run: |
-          pytest hw/test_components.py -k test_mux2way
+      # - name: test mux2way
+      #   run: |
+      #     pytest hw/test_components.py -k test_mux2way
 
-      - name: test mux4way
-        run: |
-          pytest hw/test_components.py -k test_mux4way
+      # - name: test mux4way
+      #   run: |
+      #     pytest hw/test_components.py -k test_mux4way
 
-      - name: test mux8way
-        run: |
-          pytest hw/test_components.py -k test_mux8way
+      # - name: test mux8way
+      #   run: |
+      #     pytest hw/test_components.py -k test_mux8way
 
-      - name: test deMux8way
-        run: |
-          pytest hw/test_components.py -k test_deMux8way
+      # - name: test deMux8way
+      #   run: |
+      #     pytest hw/test_components.py -k test_deMux8way
 
-      - name: test orNway
-        run: |
-          pytest hw/test_components.py -k orNway
+      # - name: test orNway
+      #   run: |
+      #     pytest hw/test_components.py -k orNway
       
-      - name: test barrelShifter
-        run: |
-          pytest hw/test_components.py -k barrelShifter
+      # - name: test barrelShifter
+      #   run: |
+      #     pytest hw/test_components.py -k barrelShifter
 
-      - name: test deMux2way
-        run: |
-          pytest hw/test_components.py -k test_deMux2way
+      # - name: test deMux2way
+      #   run: |
+      #     pytest hw/test_components.py -k test_deMux2way
 
-      - name: test deMux4way
-        run: |
-          pytest hw/test_components.py -k test_deMux4way
+      # - name: test deMux4way
+      #   run: |
+      #     pytest hw/test_components.py -k test_deMux4way
 
-      - name: test bin2bcd
-        run: |
-          pytest hw/test_components.py -k bin2bcd
+      # - name: test bin2bcd
+      #   run: |
+      #     pytest hw/test_components.py -k bin2bcd
           
-      - name: Combinacional
-        run: |
-          pytest hw/test_components.py
+      # - name: Combinacional
+      #   run: |
+      #     pytest hw/test_components.py
       
-      - name: test add
-        run: |
-          pytest hw/test_ula.py -k test_add
+      # - name: test add
+      #   run: |
+      #     pytest hw/test_ula.py -k test_add
       
-      - name: test zerador
-        run: |
-          pytest hw/test_ula.py -k test_zerador
+      # - name: test zerador
+      #   run: |
+      #     pytest hw/test_ula.py -k test_zerador
 
-      - name: test inversor
-        run: |
-          pytest hw/test_ula.py -k test_inversor
+      # - name: test inversor
+      #   run: |
+      #     pytest hw/test_ula.py -k test_inversor
       
-      - name: test addcla4
-        run: |
-          pytest hw/test_ula.py -k test_addcla4
+      # - name: test addcla4
+      #   run: |
+      #     pytest hw/test_ula.py -k test_addcla4
 
-      - name: test bcdAdder
-        run: |
-          pytest hw/test_ula.py -k test_bcdAdder
+      # - name: test bcdAdder
+      #   run: |
+      #     pytest hw/test_ula.py -k test_bcdAdder
       
-      - name: test binaryDigit
-        run: |
-          pytest hw/test_seq.py -k test_binaryDigit
+      # - name: test binaryDigit
+      #   run: |
+      #     pytest hw/test_seq.py -k test_binaryDigit
 
-      - name: test register8
-        run: |
-          pytest hw/test_seq.py -k test_register8
+      # - name: test register8
+      #   run: |
+      #     pytest hw/test_seq.py -k test_register8
 
-      - name: test registerN
-        run: |
-          pytest hw/test_seq.py -k test_registerN
+      # - name: test registerN
+      #   run: |
+      #     pytest hw/test_seq.py -k test_registerN
       
-      - name: test pc
-        run: |
-          pytest hw/test_seq.py -k test_pc
+      # - name: test pc
+      #   run: |
+      #     pytest hw/test_seq.py -k test_pc
 
-      - name: test ram
-        run: |
-          pytest hw/test_seq.py -k test_ram
+      # - name: test ram
+      #   run: |
+      #     pytest hw/test_seq.py -k test_ram
 
-      - name: test parser
+      - name: test advanced
         run: |
-          pytest sw/assembler/asmparser.py -k parser
+          pytest sw/assembler/test_asmparser.py -k test_advanced
 
+      - name: test symbol
+        run: |
+          pytest sw/assembler/test_asmparser.py -k test_symbol
+
+      - name: test label
+        run: |
+          pytest sw/assembler/test_asmparser.py -k test_label
+
+      - name: commandType
+        run: |
+          pytest sw/assembler/test_asmparser.py -k test_commandType
 
 
