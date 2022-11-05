@@ -115,6 +115,9 @@ jobs:
         run: |
           pytest hw/test_seq.py -k test_ram
 
+      - name: test parser
+        run: |
+          pytest sw/assembler/asmparser.py -k parser
 
 
 
