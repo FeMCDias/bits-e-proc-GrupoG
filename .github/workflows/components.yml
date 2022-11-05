@@ -125,7 +125,7 @@ jobs:
 
       - name: test labol
         run: |
-          pytest sw/assembler/test_asmparser.py -k test_label
+          pytest sw/assembler/test_asmparser.py -k test_labol
 
       - name: commandType
         run: |
