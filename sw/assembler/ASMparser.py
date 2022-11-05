@@ -9,6 +9,7 @@ class Parser:
         self.currentCommand = ""  # comando atual
         self.currentLine = ""  # linha de codigo atual
         self.CommandType = {"A": "A_COMMAND", "C": "C_COMMAND", "L": "L_COMMAND"}
+        self.content = self.clear_content()
 
     # DONE
     def openFile(self):
@@ -34,10 +35,16 @@ class Parser:
         @return Verdadeiro se ainda há instruções, Falso se as instruções terminaram.
         """
 
-        # você deve varrer self.file (arquivo já aberto) até encontrar: fim de arquivo
-        # ou uma nova instrucao
-        # self.file
-        pass
+        if self.lineNumber != len(self.content):
+            self.currentCommand = Parser.clear_command(self.content[self.lineNumber])
+            while self.currentCommand == [''] or self.currentCommand[0] == ';':
+                self.lineNumber += 1
+                self.currentCommand = Parser.clear_command(self.content[self.lineNumber])
+            self.lineNumber += 1
+            return True
+        else:
+            return False
+
 
     # TODO
     def commandType(self):
@@ -49,34 +56,41 @@ class Parser:
         @param  self.currentCommand
         @return o tipo da instrução.
         """
-
-        # analise o self.currentCommand
-        pass
-
+        com = self.currentCommand
+        if 'leaw' in com: 
+            return self.CommandType['A']
+        elif com[0][-1] == ':':
+            return self.CommandType['L']
+        else: 
+            return self.CommandType['C']
+        
 
     # TODO
     def symbol(self):
         """
         Retorna o símbolo ou valor numérico da instrução passada no argumento.
         Deve ser chamado somente quando commandType() é A_COMMAND.
-        @param  command instrução a ser analisada.
+        @param command instrução a ser analisada.
         @return somente o símbolo ou o valor número da instrução.
         """
 
-        # analise o self.currentCommand
-        pass
+        com = self.currentCommand
+        com[1] = com[1].replace('$','')
+        return com[1]
+
 
     # TODO
     def label(self):
         """
         Retorna o símbolo da instrução passada no argumento.
         Deve ser chamado somente quando commandType() é L_COMMAND.
-        @param  command instrução a ser analisada.
+        @param command instrução a ser analisada.
         @return o símbolo da instrução (sem os dois pontos).
         """
 
-        # analise o self.currentCommand
-        pass
+        com = self.currentCommand
+        return com[0].replace(':','')
+
 
     # DONE
     def command(self):
@@ -85,3 +99,20 @@ class Parser:
     # DONE
     def instruction(self):
         return self.currentCommand
+
+    def clear_content(self):
+        content = self.file.readlines()
+        while '\n' in content:
+            content.remove('\n')
+        return content
+
+    def clear_command(c):
+        if c == ['']: 
+            return ['']
+        else:
+            c = c.replace('\n','')
+            c = c.replace(',','')
+            c = c.split(' ')
+            while '' in c:
+                c.remove('')
+            return c   
