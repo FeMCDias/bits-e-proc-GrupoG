@@ -1,0 +1,21 @@
+{
+  "hw/test_ula.py::test_ula": true,
+  "nasm/test_nasm.py::test_div": true,
+  "nasm/test_nasm.py::test_pow": true,
+  "nasm/test_nasm.py::test_isEven": true,
+  "test_asmcode.py": true,
+  "test_asmparser.py": true,
+  "sw/test_asmcode.py::test_dest": true,
+  "sw/test_asmcode.py::test_comp": true,
+  "sw/test_asmcode.py::test_jump": true,
+  "sw/test_asmcode.py::test_toBinary": true,
+  "sw/test_asmparser.py::test_advanced": true,
+  "sw/test_asmparser.py::test_commandType": true,
+  "sw/test_asmparser.py::test_symbol": true,
+  "sw/test_asmparser.py::test_labol": true,
+  "sw/vmtranslator/test_code_arithmetic.py": true,
+  "sw/vmtranslator/test_code_function.py": true,
+  "sw/vmtranslator/test_code_goto.py": true,
+  "sw/vmtranslator/test_code_pop.py": true,
+  "sw/vmtranslator/test_code_push.py": true
+}
