@@ -92,26 +92,34 @@ class Code:
         commands.append(self.writeHead(command))
 
         if command == "add":
-            pass # TODO
+            commands = self.operations(commands,"add")
+
         elif command == "sub":
-            pass # TODO
+            commands = self.operations(commands,"sub")
+
         elif command == "or":
-            pass # TODO
+            commands = self.operations(commands,"or")
+
         elif command == "and":
-            pass # TODO
+            commands = self.operations(commands,"and")
+
         elif command == "not":
-            pass # TODO
+           commands = self.operations1(commands,'not')
+
         elif command == "neg":
-            pass # TODO
+            commands = self.operations1(commands,'neg')
+
         elif command == "eq":
             # dica, usar self.getUniqLabel() para obter um label único
-            pass # TODO
+            commands = self.jump(commands,'je')
+
         elif command == "gt":
             # dica, usar self.getUniqLabel() para obter um label único
-            pass # TODO
+            commands = self.jump(commands,'jg')
+
         elif command == "lt":
             # dica, usar self.getUniqLabel() para obter um label único
-            pass # TODO
+            commands = self.jump(commands,'jl')
 
         self.commandsToFile(commands)
 
@@ -197,3 +205,85 @@ class Code:
         # ...
 
         self.commandsToFile(commands)
+    
+    
+
+    def operations(self,commands,ope):
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("decw %D")
+        commands.append("movw %D, (%A)")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw (%A), %D")
+        commands.append("leaw $5, %A")
+        commands.append("movw %D, (%A)")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("decw %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw %A, %D")
+        commands.append("leaw $5, %A")
+        commands.append("movw (%A), %A")
+        commands.append(f"{ope}w %D, %A, %D")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("decw %A")
+        commands.append("movw %D, (%A)")
+        return commands
+    
+    def operations1(self,commands,ope):
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("decw %D")
+        commands.append("movw %D, %A")
+
+        commands.append("movw (%A), %D")
+        commands.append(f"{ope}w %D")
+
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("decw %A")
+        commands.append("movw %D, (%A)")
+        return commands
+
+    def jump(self,commands,jmp):
+        if_true = self.getUniqLabel()
+        true = 65535
+        false = 0
+        self.labelCounter +=1 
+        end = self.getUniqLabel()
+
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("decw %D")
+        commands.append("movw %D, (%A)")
+
+        commands.append("movw (%A), %A")
+        commands.append("movw (%A), %D")
+        commands.append("decw %A")
+        commands.append("movw (%A), %A")
+        commands.append("subw %A, %D, %D")
+        commands.append(f"leaw ${if_true}, %A")
+        commands.append(f"{jmp} %D")
+        commands.append("nop")
+
+        commands.append(f"leaw ${false}, %A")
+        commands.append("movw %A, %D")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("decw %A")
+        commands.append("movw %D, (%A)")
+        commands.append(f"leaw ${end}, %A")
+        commands.append("jmp")
+        commands.append("nop")
+
+        commands.append(f"{if_true}:")
+        commands.append(f"leaw ${true}, %A")
+        commands.append("movw %A, %D")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("decw %A")
+        commands.append("movw %D, (%A)")
+        commands.append(f"{end}:")
+        return commands
