@@ -115,20 +115,23 @@ jobs:
       #   run: |
       #     pytest hw/test_seq.py -k test_ram
 
-      - name: test advanced
-        run: |
-          pytest sw/assembler/test_asmparser.py -k test_advanced
+      # - name: test advanced
+      #   run: |
+      #     pytest sw/assembler/test_asmparser.py -k test_advanced
 
-      - name: test symbol
-        run: |
-          pytest sw/assembler/test_asmparser.py -k test_symbol
+      # - name: test symbol
+      #   run: |
+      #     pytest sw/assembler/test_asmparser.py -k test_symbol
 
-      - name: test labol
-        run: |
-          pytest sw/assembler/test_asmparser.py -k test_labol
+      # - name: test labol
+      #   run: |
+      #     pytest sw/assembler/test_asmparser.py -k test_labol
 
-      - name: commandType
-        run: |
-          pytest sw/assembler/test_asmparser.py -k test_commandType
+      # - name: commandType
+      #   run: |
+      #     pytest sw/assembler/test_asmparser.py -k test_commandType
 
+    - name: test writeArithmetic
+        run: |
+          pytest sw/vmtranslator test_code_arithmetic
 
