@@ -135,3 +135,7 @@ jobs:
         run: |
           pytest sw/vmtranslator test_code_arithmetic
 
+    - name: test writePop
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py
+
