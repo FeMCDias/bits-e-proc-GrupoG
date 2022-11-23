@@ -135,3 +135,23 @@ jobs:
         run: |
           pytest sw/vmtranslator test_code_arithmetic
 
+    - name: test pop_local
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
+
+    - name: test pop_this
+      run: |
+        pytest sw/vmtranslator/test_code_pop.py -k test_pop_this
+
+    - name: test pop_that
+      run: |
+        pytest sw/vmtranslator/test_code_pop.py -k test_pop_that
+        
+    - name: test pop_pointer
+      run: |
+        pytest sw/vmtranslator/test_code_pop.py -k test_pop_pointer
+
+    - name: test pop_temp
+      run: |
+        pytest sw/vmtranslator/test_code_pop.py -k test_pop_temp
+

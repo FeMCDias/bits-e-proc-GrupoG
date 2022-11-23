@@ -123,6 +123,7 @@ class Code:
 
         self.commandsToFile(commands)
 
+    #TODO
     def writePop(self, command, segment, index):
         self.updateUniqLabel()
         commands = []
@@ -130,21 +131,20 @@ class Code:
 
         if segment == "" or segment == "constant":
             return False
+
         elif segment == "local":
-            # dica: usar o argumento index (push local 1)
-            pass # TODO
-        elif segment == "argument":
-            pass # TODO
+            commands = self.wpop(commands,index,32)
         elif segment == "this":
-            pass # TODO
+            commands = self.wpop(commands,index,1024)
         elif segment == "that":
-            pass # TODO
+            commands = self.wpop(commands,index,1024)
         elif segment == "temp":
-            # dica: usar o argumento index (push temp 0)
-            pass # TODO
+            commands = self.wpop(commands,index,5)
+        elif segment == "pointer":
+            commands = self.wpop(commands,index,3)
         elif segment == "static":
             pass # TODO
-        elif segment == "pointer":
+        elif segment == "argument":
             pass # TODO
 
         self.commandsToFile(commands)
@@ -286,4 +286,26 @@ class Code:
         commands.append("decw %A")
         commands.append("movw %D, (%A)")
         commands.append(f"{end}:")
+        return commands
+
+    def wpop(self,commands,index,ram):
+        # dica: usar o argumento index (push local 1)
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("decw %D")
+        commands.append("movw %D, (%A)")
+
+        commands.append(f"leaw ${ram}, %A")
+        commands.append("movw %A, %D")
+        commands.append(f"leaw ${index}, %A")
+        commands.append("addw %A, %D, %D")
+
+        commands.append("leaw $5, %A")
+        commands.append("movw %D, (%A)")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw (%A), %D")
+        commands.append("leaw $5, %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw %D, (%A)")
         return commands
