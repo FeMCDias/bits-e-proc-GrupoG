@@ -131,7 +131,7 @@ class Code:
 
         if segment == "" or segment == "constant":
             return False
-
+        
         elif segment == "local":
             commands = self.wpop(commands,index,32)
         elif segment == "this":
@@ -143,9 +143,9 @@ class Code:
         elif segment == "pointer":
             commands = self.wpop(commands,index,3)
         elif segment == "static":
-            pass # TODO
+            pass
         elif segment == "argument":
-            pass # TODO
+            pass
 
         self.commandsToFile(commands)
 
@@ -154,25 +154,21 @@ class Code:
         commands.append(self.writeHead(command + " " + segment + " " + str(index)))
 
         if segment == "constant":
-            # dica: usar index para saber o valor da consante
-            # push constant index
-            pass # TODO
+            commands = self.wpushconstant(commands,index)
         elif segment == "local":
-            pass # TODO
+            commands = self.wpush(commands,index,1)
         elif segment == "argument":
-            pass # TODO
+            commands = self.wpush(commands,index,2)
         elif segment == "this":
-            pass # TODO
+            commands = self.wpush(commands,index,3)
         elif segment == "that":
-            pass # TODO
-        elif segment == "argument":
-            pass # TODO
-        elif segment == "static":
-            pass # TODO
+            commands = self.wpush(commands,index,4)
         elif segment == "temp":
-            pass # TODO
+            commands = self.wpush1(commands,index,5)
         elif segment == "pointer":
-            pass # TODO
+            commands = self.wpush1(commands,index,3)
+        elif segment == "static":
+            pass
 
         self.commandsToFile(commands)
 
@@ -307,5 +303,54 @@ class Code:
         commands.append("movw (%A), %D")
         commands.append("leaw $5, %A")
         commands.append("movw (%A), %A")
+        commands.append("movw %D, (%A)")
+        return commands
+
+    def wpush(self,commands,index,ram):
+        commands.append(f"leaw ${ram}, %A")
+        commands.append("movw (%A), %D")
+        commands.append(f"leaw ${index}, %A")
+        commands.append("addw %A, %D, %D")
+        commands.append(f"leaw ${ram}, %A")
+        commands.append("movw %D, (%A)")
+
+        commands.append("movw (%A), %A")
+        commands.append("movw (%A), %D")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw %D, (%A)")
+
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("incw %D")
+        commands.append("movw %D, (%A)")
+        return commands
+    
+    def wpush1(self,commands,index,ram):
+        commands.append(f"leaw ${ram}, $A")
+        commands.append("movw %A, %D")
+        commands.append(f"leaw ${index}, %A")
+        commands.append("addw %A, %D, %A")
+        commands.append("movw (%A), %D")
+        commands.append("leaw $SP, $A")
+        commands.append("movw (%A), %A")
+        commands.append("movw %D, (%A)")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("incw %D")
+        commands.append("movw %D, (%A)")
+        return commands
+    
+    def wpushconstant(self,commands,index):
+        # dica: usar index para saber o valor da consante
+        # push constant index
+        commands.append(f"leaw ${index}, %A")
+        commands.append("movw %A, %D")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %A")
+        commands.append("movw %D, (%A)")
+        commands.append("leaw $SP, %A")
+        commands.append("movw (%A), %D")
+        commands.append("incw %D")
         commands.append("movw %D, (%A)")
         return commands

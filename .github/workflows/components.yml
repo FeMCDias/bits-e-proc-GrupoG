@@ -135,6 +135,8 @@ jobs:
         run: |
           pytest sw/vmtranslator test_code_arithmetic
 
+    # pop
+
     - name: test pop_local
         run: |
           pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
@@ -154,4 +156,33 @@ jobs:
     - name: test pop_temp
       run: |
         pytest sw/vmtranslator/test_code_pop.py -k test_pop_temp
+    
+    # push
 
+    - name: test push_constant
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_constant
+
+    - name: test push_local
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_local
+    
+    - name: test push_argument
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_argument
+    
+    - name: test push_this
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_this
+
+    - name: test push_that
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_that
+
+    - name: test push_temp
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_temp
+
+    - name: test push_pointer
+      run: |
+        pytest sw/vmtranslator/test_code_push.py -k test_push_pointer
