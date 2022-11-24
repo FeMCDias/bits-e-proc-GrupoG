@@ -59,38 +59,29 @@ class Code:
         if bootstrap or isDir:
             self.commandsToFile(commands)
 
+    # TODO
     def writeLabel(self, label):
         commands = []
         commands.append(self.writeHead("label") + " " + label)
-        commands.append(f"{label}:")
-        
+
+        # TODO ...
         self.commandsToFile(commands)
 
+    # TODO
     def writeGoto(self, label):
         commands = []
         commands.append(self.writeHead("goto") + " " + label)
-        commands.append(f"leaw ${label}, %A")
-        commands.append("jmp")
-        commands.append("nop")
 
+        # TODO ...
         self.commandsToFile(commands)
-        
+
+    # TODO
     def writeIf(self, label):
-        commands = []
         commands.append(self.writeHead("if") + " " + label)
-        commands.append("leaw $SP, %A")
-        commands.append("movw (%A), %D")
-        commands.append("decw %D")
-        commands.append("movw %D, (%A)")
-        commands.append("leaw $SP, %A")
-        commands.append("movw (%A), %A")
-        commands.append("movw (%A), %D")
-        commands.append(f"leaw ${label}, %A")
-        commands.append("jl %D")
-        commands.append("nop")
+        commands = []
 
+        # TODO ...
         self.commandsToFile(commands)
-
 
     # TODO
     def writeArithmetic(self, command):
