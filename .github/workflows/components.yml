@@ -131,58 +131,62 @@ jobs:
       #   run: |
       #     pytest sw/assembler/test_asmparser.py -k test_commandType
 
-    - name: test writeArithmetic
+      - name: test writeArithmetic
         run: |
-          pytest sw/vmtranslator test_code_arithmetic
+          pytest sw/vmtranslator/test_code_arithmetic.py
 
-    # pop
+      # pop
 
-    - name: test pop_local
+      - name: test pop_local
         run: |
           pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
 
-    - name: test pop_this
-      run: |
-        pytest sw/vmtranslator/test_code_pop.py -k test_pop_this
+      - name: test pop_this
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_this
 
-    - name: test pop_that
-      run: |
-        pytest sw/vmtranslator/test_code_pop.py -k test_pop_that
-        
-    - name: test pop_pointer
-      run: |
-        pytest sw/vmtranslator/test_code_pop.py -k test_pop_pointer
+      - name: test pop_that
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_that
+          
+      - name: test pop_pointer
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_pointer
 
-    - name: test pop_temp
-      run: |
-        pytest sw/vmtranslator/test_code_pop.py -k test_pop_temp
-    
-    # push
+      - name: test pop_temp
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_temp
+      
+      # push
 
-    - name: test push_constant
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_constant
+      - name: test push_constant
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_constant
 
-    - name: test push_local
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_local
-    
-    - name: test push_argument
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_argument
-    
-    - name: test push_this
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_this
+      - name: test push_local
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_local
+      
+      - name: test push_argument
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_argument
+      
+      - name: test push_this
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_this
 
-    - name: test push_that
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_that
+      - name: test push_that
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_that
 
-    - name: test push_temp
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_temp
+      - name: test push_temp
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_temp
 
-    - name: test push_pointer
-      run: |
-        pytest sw/vmtranslator/test_code_push.py -k test_push_pointer
+      - name: test push_pointer
+        run: |
+          pytest sw/vmtranslator/test_code_push.py -k test_push_pointer
+
+      - name: test code_goto
+        run: |
+          pytest sw/vmtranslator/test_code_goto.py
