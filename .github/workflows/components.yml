@@ -186,3 +186,7 @@ jobs:
     - name: test push_pointer
       run: |
         pytest sw/vmtranslator/test_code_push.py -k test_push_pointer
+
+    - name: test code_goto
+      run: |
+        pytest sw/vmtranslator test_code_goto
