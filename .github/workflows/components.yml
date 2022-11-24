@@ -132,14 +132,14 @@ jobs:
       #     pytest sw/assembler/test_asmparser.py -k test_commandType
 
       - name: test writeArithmetic
-          run: |
-            pytest sw/vmtranslator/test_code_arithmetic.py
+        run: |
+          pytest sw/vmtranslator/test_code_arithmetic.py
 
       # pop
 
       - name: test pop_local
-          run: |
-            pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
+        run: |
+          pytest sw/vmtranslator/test_code_pop.py -k test_pop_local
 
       - name: test pop_this
         run: |
